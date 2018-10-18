@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>
+      net45;netstandard1.5;netstandard1.6;netstandard2.0
+    </TargetFrameworks>
+    <Company>Kalmar Germany GmbH</Company>
+    <Description>Wrapper for Navis Company Cloud REST API</Description>
+    <Copyright>Copyright Kalmar Germany GmbH © 2018</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/NavisCarrierSolutions/Navis.SDK.CompanyCloud/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/NavisCarrierSolutions/Navis.SDK.CompanyCloud</PackageProjectUrl>
+    <Authors>Kalmar Germany GmbH</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+</Project>
