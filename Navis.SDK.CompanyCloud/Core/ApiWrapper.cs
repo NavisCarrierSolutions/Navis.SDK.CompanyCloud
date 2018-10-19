@@ -42,6 +42,8 @@ namespace Navis.SDK.CompanyCloud.Core
         {
         }
 
+        private AuthenticationHeaderValue GetAuthHeader() => new AuthenticationHeaderValue("Bearer", _bearerToken);
+
         /// <summary>Posts a new object using the specified route.</summary>
         /// <param name="accountIdentifier">The account identifier which can be domain or Uid.</param>
         /// <param name="apiKey">Api key identifier.</param>
@@ -53,11 +55,12 @@ namespace Navis.SDK.CompanyCloud.Core
         public async Task<T> GetObjectAsync<T>(string accountIdentifier, string apiKey, string route, CancellationToken cancellationToken)
         {
             var client = new System.Net.Http.HttpClient {BaseAddress = _baseUrl};
+            client.DefaultRequestHeaders.Authorization = GetAuthHeader();
             try
             {
                 using (var request = new System.Net.Http.HttpRequestMessage())
                 {
-                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _bearerToken);
+                    request.Headers.Authorization = GetAuthHeader();
                     if (accountIdentifier != null)
                         request.Headers.TryAddWithoutValidation("accountIdentifier",
                             ConvertToString(accountIdentifier, System.Globalization.CultureInfo.InvariantCulture));
@@ -164,11 +167,12 @@ namespace Navis.SDK.CompanyCloud.Core
         public async Task<TR> PostObjectAsync<TR, TI>(TI postObject, string accountIdentifier, string apiKey, string route, CancellationToken cancellationToken)
         {
             var client = new System.Net.Http.HttpClient {BaseAddress = _baseUrl};
+            client.DefaultRequestHeaders.Authorization = GetAuthHeader();
             try
             {
                 using (var request = new System.Net.Http.HttpRequestMessage())
                 {
-                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _bearerToken);
+                    request.Headers.Authorization = GetAuthHeader();
                     if (accountIdentifier != null)
                         request.Headers.TryAddWithoutValidation("accountIdentifier",
                             ConvertToString(accountIdentifier, System.Globalization.CultureInfo.InvariantCulture));
@@ -296,11 +300,12 @@ namespace Navis.SDK.CompanyCloud.Core
         public async Task<TR> PutObjectAsync<TR, TI>(TI putObject, string accountIdentifier, string apiKey, string route, CancellationToken cancellationToken)
         {
             var client = new System.Net.Http.HttpClient { BaseAddress = _baseUrl };
+            client.DefaultRequestHeaders.Authorization = GetAuthHeader();
             try
             {
                 using (var request = new System.Net.Http.HttpRequestMessage())
                 {
-                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _bearerToken);
+                    request.Headers.Authorization = GetAuthHeader();
                     if (accountIdentifier != null)
                         request.Headers.TryAddWithoutValidation("accountIdentifier",
                             ConvertToString(accountIdentifier, System.Globalization.CultureInfo.InvariantCulture));
@@ -398,11 +403,12 @@ namespace Navis.SDK.CompanyCloud.Core
         public async Task<T> DeleteObjectAsync<T>(string accountIdentifier, string apiKey, string route, CancellationToken cancellationToken)
         {
             var client = new System.Net.Http.HttpClient { BaseAddress = _baseUrl };
+            client.DefaultRequestHeaders.Authorization = GetAuthHeader();
             try
             {
                 using (var request = new System.Net.Http.HttpRequestMessage())
                 {
-                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _bearerToken);
+                    request.Headers.Authorization = GetAuthHeader();
                     if (accountIdentifier != null)
                         request.Headers.TryAddWithoutValidation("accountIdentifier",
                             ConvertToString(accountIdentifier, System.Globalization.CultureInfo.InvariantCulture));
