@@ -8,6 +8,14 @@ namespace Navis.SDK.CompanyCloud.Clients
     public class ShipClient : ApiWrapper
     {
         /// <summary>
+        /// Creates a new instance of the <see cref="ShipClient"/> class.
+        /// </summary>
+        /// <param name="bearerToken">JWT Authorization header using the Bearer scheme.</param>
+        public ShipClient(string bearerToken) : base(bearerToken)
+        {
+        }
+
+        /// <summary>
         /// Returns the ship that matches the specific identifier.
         /// </summary>
         /// <param name="identifier">The ship identifier which can be imo or Uid.</param>

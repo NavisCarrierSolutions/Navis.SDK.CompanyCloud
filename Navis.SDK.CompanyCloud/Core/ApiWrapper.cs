@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,9 +13,11 @@ namespace Navis.SDK.CompanyCloud.Core
         private const string DefaultServerAddress = "https://api.company.navis-cvs.com";
         private readonly Lazy<JsonSerializerSettings> _settings;
         private readonly Uri _baseUrl;
+        private readonly string _bearerToken;
 
-        protected ApiWrapper(string serverAddress = DefaultServerAddress)
+        protected ApiWrapper(string bearerToken, string serverAddress = DefaultServerAddress)
         {
+            _bearerToken = bearerToken;
             _baseUrl = new Uri(serverAddress);
             _settings = new Lazy<JsonSerializerSettings>(() =>
             {
@@ -54,6 +57,7 @@ namespace Navis.SDK.CompanyCloud.Core
             {
                 using (var request = new System.Net.Http.HttpRequestMessage())
                 {
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _bearerToken);
                     if (accountIdentifier != null)
                         request.Headers.TryAddWithoutValidation("accountIdentifier",
                             ConvertToString(accountIdentifier, System.Globalization.CultureInfo.InvariantCulture));
@@ -61,8 +65,7 @@ namespace Navis.SDK.CompanyCloud.Core
                         request.Headers.TryAddWithoutValidation("apiKey",
                             ConvertToString(apiKey, System.Globalization.CultureInfo.InvariantCulture));
                     request.Method = new System.Net.Http.HttpMethod("GET");
-                    request.Headers.Accept.Add(
-                        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                    request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     
                     request.RequestUri = new Uri(route, UriKind.RelativeOrAbsolute);
 
@@ -165,6 +168,7 @@ namespace Navis.SDK.CompanyCloud.Core
             {
                 using (var request = new System.Net.Http.HttpRequestMessage())
                 {
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _bearerToken);
                     if (accountIdentifier != null)
                         request.Headers.TryAddWithoutValidation("accountIdentifier",
                             ConvertToString(accountIdentifier, System.Globalization.CultureInfo.InvariantCulture));
@@ -174,12 +178,10 @@ namespace Navis.SDK.CompanyCloud.Core
                     var content =
                         new System.Net.Http.StringContent(
                             JsonConvert.SerializeObject(postObject, _settings.Value));
-                    content.Headers.ContentType =
-                        System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                     request.Content = content;
                     request.Method = new System.Net.Http.HttpMethod("POST");
-                    request.Headers.Accept.Add(
-                        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                    request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     request.RequestUri = new Uri(route, UriKind.RelativeOrAbsolute);
 
                     PrepareRequest(client, request, route);
@@ -298,6 +300,7 @@ namespace Navis.SDK.CompanyCloud.Core
             {
                 using (var request = new System.Net.Http.HttpRequestMessage())
                 {
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _bearerToken);
                     if (accountIdentifier != null)
                         request.Headers.TryAddWithoutValidation("accountIdentifier",
                             ConvertToString(accountIdentifier, System.Globalization.CultureInfo.InvariantCulture));
@@ -306,12 +309,10 @@ namespace Navis.SDK.CompanyCloud.Core
                             ConvertToString(apiKey, System.Globalization.CultureInfo.InvariantCulture));
                     var content =
                         new System.Net.Http.StringContent(JsonConvert.SerializeObject(putObject, _settings.Value));
-                    content.Headers.ContentType =
-                        System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                     request.Content = content;
                     request.Method = new System.Net.Http.HttpMethod("PUT");
-                    request.Headers.Accept.Add(
-                        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                    request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     request.RequestUri = new Uri(route, UriKind.RelativeOrAbsolute);
                     PrepareRequest(client, request, route);
 
@@ -401,6 +402,7 @@ namespace Navis.SDK.CompanyCloud.Core
             {
                 using (var request = new System.Net.Http.HttpRequestMessage())
                 {
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _bearerToken);
                     if (accountIdentifier != null)
                         request.Headers.TryAddWithoutValidation("accountIdentifier",
                             ConvertToString(accountIdentifier, System.Globalization.CultureInfo.InvariantCulture));
@@ -408,8 +410,7 @@ namespace Navis.SDK.CompanyCloud.Core
                         request.Headers.TryAddWithoutValidation("apiKey",
                             ConvertToString(apiKey, System.Globalization.CultureInfo.InvariantCulture));
                     request.Method = new System.Net.Http.HttpMethod("DELETE");
-                    request.Headers.Accept.Add(
-                        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                    request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     request.RequestUri = new Uri(route, UriKind.RelativeOrAbsolute);
 
                     PrepareRequest(client, request, route);

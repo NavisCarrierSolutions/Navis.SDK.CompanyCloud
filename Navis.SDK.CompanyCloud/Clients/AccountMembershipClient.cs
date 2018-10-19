@@ -7,6 +7,14 @@ namespace Navis.SDK.CompanyCloud.Clients
     public class AccountMembershipClient : ApiWrapper
     {
         /// <summary>
+        /// Creates a new instance of the <see cref="AccountMembershipClient"/> class.
+        /// </summary>
+        /// <param name="bearerToken">JWT Authorization header using the Bearer scheme.</param>
+        public AccountMembershipClient(string bearerToken) : base(bearerToken)
+        {
+        }
+
+        /// <summary>
         /// Returns the actual (valid) account membership linked to an account of the current user.
         /// </summary>
         /// <param name="accountIdentifier">The account identifier which can be domain or Uid.</param>

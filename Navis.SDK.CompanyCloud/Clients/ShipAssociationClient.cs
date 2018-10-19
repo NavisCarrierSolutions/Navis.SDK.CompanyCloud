@@ -9,6 +9,14 @@ namespace Navis.SDK.CompanyCloud.Clients
     public class ShipAssociationClient : ApiWrapper
     {
         /// <summary>
+        /// Creates a new instance of the <see cref="ShipAssociationClient"/> class.
+        /// </summary>
+        /// <param name="bearerToken">JWT Authorization header using the Bearer scheme.</param>
+        public ShipAssociationClient(string bearerToken) : base(bearerToken)
+        {
+        }
+
+        /// <summary>
         /// Returns all associations between ships and an domain specific user account.
         /// </summary>
         /// <param name="accountIdentifier">The account identifier which can be domain or Uid.</param>
