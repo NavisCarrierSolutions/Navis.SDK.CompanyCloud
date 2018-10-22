@@ -11,8 +11,9 @@ namespace Navis.SDK.CompanyCloud.Clients
         /// <summary>
         /// Creates a new instance of the <see cref="ShipAssociationClient"/> class.
         /// </summary>
-        /// <param name="bearerToken">JWT Authorization header using the Bearer scheme.</param>
-        public ShipAssociationClient(string bearerToken) : base(bearerToken)
+        /// <param name="tokenProvider">Provides the user's JWT token when requested.</param>
+        /// <param name="ncsSettings">The NCS settings to use for this client.</param>
+        public ShipAssociationClient(ITokenProvider tokenProvider, INcsSettings ncsSettings) : base(tokenProvider, ncsSettings)
         {
         }
 

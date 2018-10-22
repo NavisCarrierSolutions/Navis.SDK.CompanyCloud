@@ -10,15 +10,14 @@ namespace Navis.SDK.CompanyCloud.Core
 {
     public abstract class ApiWrapper
     {
-        private const string DefaultServerAddress = "https://api.company.navis-cvs.com";
+        private readonly ITokenProvider _tokenProvider;
         private readonly Lazy<JsonSerializerSettings> _settings;
         private readonly Uri _baseUrl;
-        private readonly string _bearerToken;
 
-        protected ApiWrapper(string bearerToken, string serverAddress = DefaultServerAddress)
+        protected ApiWrapper(ITokenProvider tokenProvider, INcsSettings ncsSettings)
         {
-            _bearerToken = bearerToken;
-            _baseUrl = new Uri(serverAddress);
+            _tokenProvider = tokenProvider;
+            _baseUrl = new Uri(ncsSettings.ServerAddress);
             _settings = new Lazy<JsonSerializerSettings>(() =>
             {
                 var settings = new JsonSerializerSettings();
@@ -42,7 +41,7 @@ namespace Navis.SDK.CompanyCloud.Core
         {
         }
 
-        private AuthenticationHeaderValue GetAuthHeader() => new AuthenticationHeaderValue("Bearer", _bearerToken);
+        private AuthenticationHeaderValue GetAuthHeader() => new AuthenticationHeaderValue("Bearer", _tokenProvider.GetJwtToken());
 
         /// <summary>Posts a new object using the specified route.</summary>
         /// <param name="accountIdentifier">The account identifier which can be domain or Uid.</param>
