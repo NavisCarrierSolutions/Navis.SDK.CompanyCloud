@@ -42,7 +42,7 @@
         /// </summary>
         [Newtonsoft.Json.JsonProperty("uid", Required = Newtonsoft.Json.Required.Default,
             NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid? Uid { get; set; }
+        public System.Guid Uid { get; set; }
 
         /// <summary>
         /// Converts this <see cref="ShipAssociation"/> instance to json.

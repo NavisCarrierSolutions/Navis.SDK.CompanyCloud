@@ -52,7 +52,7 @@ namespace Navis.SDK.CompanyCloud.DTO.Query
         /// </summary>
         [Newtonsoft.Json.JsonProperty("uid", Required = Newtonsoft.Json.Required.Default,
             NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Guid? Uid { get; set; }
+        public Guid Uid { get; set; }
 
         /// <summary>
         /// Converts this <see cref="AccountMembership"/> instance to json.

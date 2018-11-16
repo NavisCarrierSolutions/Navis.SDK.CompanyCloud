@@ -32,14 +32,14 @@ namespace Navis.SDK.CompanyCloud.DTO.Query
         [Newtonsoft.Json.JsonProperty("releaseLevel", Required = Newtonsoft.Json.Required.Default,
             NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public ReleaseLevels? ReleaseLevel { get; set; }
+        public ReleaseLevels ReleaseLevel { get; set; }
 
         /// <summary>
         /// Unique identifier of app.
         /// </summary>
         [Newtonsoft.Json.JsonProperty("uid", Required = Newtonsoft.Json.Required.Default,
             NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Guid? Uid { get; set; }
+        public Guid Uid { get; set; }
 
         /// <summary>
         /// Converts this <see cref="UserApp"/> instance to json.
