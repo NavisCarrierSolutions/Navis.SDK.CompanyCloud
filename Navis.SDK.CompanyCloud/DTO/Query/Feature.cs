@@ -1,4 +1,6 @@
-﻿namespace Navis.SDK.CompanyCloud.DTO.Query
+﻿using Navis.SDK.CompanyCloud.Model.Enums;
+
+namespace Navis.SDK.CompanyCloud.DTO.Query
 {
     public class Feature
     {
@@ -35,7 +37,15 @@
         /// </summary>
         [Newtonsoft.Json.JsonProperty("uid", Required = Newtonsoft.Json.Required.Default,
             NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid? Uid { get; set; }
+        public System.Guid Uid { get; set; }
+
+        /// <summary>
+        /// Release level of feature.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("releaseLevel", Required = Newtonsoft.Json.Required.Default,
+            NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public ReleaseLevels ReleaseLevel { get; set; }
 
         /// <summary>
         /// Converts this <see cref="Feature"/> instance to json.

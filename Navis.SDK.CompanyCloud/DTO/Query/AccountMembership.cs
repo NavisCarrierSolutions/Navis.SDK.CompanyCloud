@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Navis.SDK.CompanyCloud.Model.Enums;
+using System;
 using System.Collections.ObjectModel;
 
 namespace Navis.SDK.CompanyCloud.DTO.Query
@@ -52,7 +53,21 @@ namespace Navis.SDK.CompanyCloud.DTO.Query
         /// </summary>
         [Newtonsoft.Json.JsonProperty("uid", Required = Newtonsoft.Json.Required.Default,
             NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public Guid? Uid { get; set; }
+        public Guid Uid { get; set; }
+
+        /// <summary>
+        /// Shows if a member is an accoutn administrator.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("isAccountAdmin", Required = Newtonsoft.Json.Required.Default,
+            NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool IsAccountAdmin { get; set; }
+
+        /// <summary>
+        /// Represents user's tester level.
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("testerLevel", Required = Newtonsoft.Json.Required.Default,
+            NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public ReleaseLevels TesterLevel { get; set; }
 
         /// <summary>
         /// Converts this <see cref="AccountMembership"/> instance to json.

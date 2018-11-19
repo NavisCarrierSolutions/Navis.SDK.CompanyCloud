@@ -48,7 +48,7 @@ namespace Navis.SDK.CompanyCloud.DTO.Post
         /// </summary>
         [JsonProperty("uid", Required = Required.Default,
             NullValueHandling = NullValueHandling.Ignore)]
-        public Guid? Uid { get; set; }
+        public Guid Uid { get; set; }
 
         /// <summary>
         /// Converts this <see cref="ShipAssociation"/> instance to json.
