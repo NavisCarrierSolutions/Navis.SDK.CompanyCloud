@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Navis.SDK.CompanyCloud.Core;
+﻿using Navis.SDK.CompanyCloud.Core;
 using Navis.SDK.CompanyCloud.Model.Common;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Navis.SDK.CompanyCloud.Clients
 {
@@ -28,7 +28,7 @@ namespace Navis.SDK.CompanyCloud.Clients
         {
             var route = $"/v1/ships/{identifier}";
             var result = await GetObjectAsync<DTO.Query.Ship>(null, null,
-                route, cancellationToken);
+                route, null, cancellationToken);
             return result;
         }
 
@@ -45,7 +45,7 @@ namespace Navis.SDK.CompanyCloud.Clients
         {
             var route = $"/v1/ships?page={page}&pageSize={pageSize}";
             var result = await GetObjectAsync<PagedResult<DTO.Query.Ship>>(null, null,
-                route, cancellationToken);
+                route, null, cancellationToken);
             return result;
         }
 

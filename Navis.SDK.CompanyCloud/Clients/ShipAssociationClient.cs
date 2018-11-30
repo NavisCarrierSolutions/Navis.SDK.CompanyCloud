@@ -1,8 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using Navis.SDK.CompanyCloud.Core;
+using Navis.SDK.CompanyCloud.Model.Common;
+using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
-using Navis.SDK.CompanyCloud.Core;
-using Navis.SDK.CompanyCloud.Model.Common;
 
 namespace Navis.SDK.CompanyCloud.Clients
 {
@@ -31,7 +31,7 @@ namespace Navis.SDK.CompanyCloud.Clients
         {
             var route = $"/v1/shipAssociations?page={page}&pageSize={pageSize}";
             var result = await GetObjectAsync<PagedResult<DTO.Query.ShipAssociation>>(accountIdentifier, null, 
-                route, cancellationToken);
+                route, null, cancellationToken);
             return result;
         }
 
@@ -48,7 +48,7 @@ namespace Navis.SDK.CompanyCloud.Clients
         {
             var route = $"/v1/shipAssociations/{imo}";
             var result = await GetObjectAsync<ObservableCollection<DTO.Query.ShipAssociation>>(accountIdentifier, null,
-                route, cancellationToken);
+                route, null, cancellationToken);
             return result;
         }
 

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Navis.SDK.CompanyCloud.Core
 {
@@ -47,11 +47,11 @@ namespace Navis.SDK.CompanyCloud.Core
         /// <param name="accountIdentifier">The account identifier which can be domain or Uid.</param>
         /// <param name="apiKey">Api key identifier.</param>
         /// <param name="route">Route to use to post object.</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other
-        /// objects or threads to receive notice of cancellation.</param>
+        /// <param name="appIdentifier">App identifier to fetch only app-related features</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="HttpException">A server side error occurred.</exception>
-        public async Task<T> GetObjectAsync<T>(string accountIdentifier, string apiKey, string route, CancellationToken cancellationToken)
+        public async Task<T> GetObjectAsync<T>(string accountIdentifier, string apiKey, string route, string appIdentifier = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             var client = new System.Net.Http.HttpClient {BaseAddress = _baseUrl};
             client.DefaultRequestHeaders.Authorization = GetAuthHeader();
@@ -60,12 +60,15 @@ namespace Navis.SDK.CompanyCloud.Core
                 using (var request = new System.Net.Http.HttpRequestMessage())
                 {
                     request.Headers.Authorization = GetAuthHeader();
-                    if (accountIdentifier != null)
+                    if (!string.IsNullOrEmpty(accountIdentifier))
                         request.Headers.TryAddWithoutValidation("accountIdentifier",
                             ConvertToString(accountIdentifier, System.Globalization.CultureInfo.InvariantCulture));
-                    if (apiKey != null)
+                    if (!string.IsNullOrEmpty(apiKey))
                         request.Headers.TryAddWithoutValidation("apiKey",
                             ConvertToString(apiKey, System.Globalization.CultureInfo.InvariantCulture));
+                    if(!string.IsNullOrEmpty(appIdentifier))
+                        request.Headers.TryAddWithoutValidation("appIdentifier",
+                            ConvertToString(appIdentifier, System.Globalization.CultureInfo.InvariantCulture));
                     request.Method = new System.Net.Http.HttpMethod("GET");
                     request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     
