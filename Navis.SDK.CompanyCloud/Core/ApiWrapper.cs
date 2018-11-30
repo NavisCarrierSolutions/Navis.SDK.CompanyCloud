@@ -47,12 +47,11 @@ namespace Navis.SDK.CompanyCloud.Core
         /// <param name="accountIdentifier">The account identifier which can be domain or Uid.</param>
         /// <param name="apiKey">Api key identifier.</param>
         /// <param name="route">Route to use to post object.</param>
-        /// <param name="cancellationToken">A cancellation token that can be used by other
-        /// objects or threads to receive notice of cancellation.</param>
         /// <param name="appIdentifier">App identifier to fetch only app-related features</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="HttpException">A server side error occurred.</exception>
-        public async Task<T> GetObjectAsync<T>(string accountIdentifier, string apiKey, string route, CancellationToken cancellationToken, string appIdentifier = null)
+        public async Task<T> GetObjectAsync<T>(string accountIdentifier, string apiKey, string route, string appIdentifier = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             var client = new System.Net.Http.HttpClient {BaseAddress = _baseUrl};
             client.DefaultRequestHeaders.Authorization = GetAuthHeader();
