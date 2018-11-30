@@ -1,6 +1,6 @@
-﻿using System.Threading;
+﻿using Navis.SDK.CompanyCloud.Core;
+using System.Threading;
 using System.Threading.Tasks;
-using Navis.SDK.CompanyCloud.Core;
 
 namespace Navis.SDK.CompanyCloud.Clients
 {
@@ -21,13 +21,14 @@ namespace Navis.SDK.CompanyCloud.Clients
         /// <param name="accountIdentifier">The account identifier which can be domain or Uid.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other
         /// objects or threads to receive notice of cancellation.</param>
+        /// <param name="appIdentifier">App identifier to fetch only app-related features</param>
         /// <exception cref="HttpException">A server side error occurred.</exception>
         public async Task<DTO.Query.AccountMembership> GetByIdAsync(string accountIdentifier,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken, string appIdentifier = null)
         {
             const string route = "/v1/membership";
             var result = await GetObjectAsync<DTO.Query.AccountMembership>(accountIdentifier, null,
-                route, cancellationToken);
+                route, cancellationToken, appIdentifier);
             return result;
         }
     }
