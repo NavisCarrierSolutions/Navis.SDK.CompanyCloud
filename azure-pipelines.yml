@@ -11,6 +11,9 @@ jobs:
       clean: outputs
 
     steps:
+      - checkout: self
+        clean: true
+
       - task: GitVersion@5
         displayName: GitVersion
         inputs:
