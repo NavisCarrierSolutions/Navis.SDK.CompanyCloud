@@ -15,6 +15,7 @@ jobs:
         displayName: GitVersion
         inputs:
           updateAssemblyInfo: true
+          configFilePath: 'GitVersion.yml'
 
       - task: NuGetToolInstaller@1
         displayName: 'Use NuGet 5.6.0'
