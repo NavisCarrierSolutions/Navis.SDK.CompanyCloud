@@ -7,6 +7,8 @@ jobs:
         Release-Any:
           Platform: 'Any CPU'
           BuildConfiguration: 'Release'
+    workspace:
+      clean: outputs
 
     steps:
       - task: GitVersion@5
