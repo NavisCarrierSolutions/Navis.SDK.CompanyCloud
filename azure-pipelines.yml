@@ -1,0 +1,54 @@
+jobs:
+  - job: Build
+    displayName: 'Build'
+    pool: Cloud-Build
+    strategy:
+      matrix:
+        Release-Any:
+          Platform: 'Any CPU'
+          BuildConfiguration: 'Release'
+    workspace:
+      clean: outputs
+
+    steps:
+      - checkout: self
+        clean: true
+
+      - task: GitVersion@5
+        displayName: GitVersion
+        inputs:
+          updateAssemblyInfo: true
+          configFilePath: 'GitVersion.yml'
+
+      - task: NuGetToolInstaller@1
+        displayName: 'Use NuGet 5.6.0'
+        inputs:
+          versionSpec: 5.6.0
+
+      - task: NuGetCommand@2
+        displayName: 'NuGet restore'
+        inputs:
+          restoreSolution: Navis.SDK.CompanyCloud.sln
+
+      - task: VSBuild@1
+        displayName: 'Build solution Navis.SDK.CompanyCloud.sln'
+        inputs:
+          solution: Navis.SDK.CompanyCloud.sln
+          platform: '$(Platform)'
+          configuration: '$(BuildConfiguration)'
+          clean: true
+
+      - task: MSBuild@1
+        displayName: 'NuGet package'
+        inputs:
+          solution: Navis.SDK.CompanyCloud.sln
+          platform: '$(Platform)'
+          configuration: '$(BuildConfiguration)'
+          msbuildArguments: '/t:pack /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)" /p:NoPackageAnalysis=true /p:PackageVersion=$(GitVersion.FullSemVer)'
+          maximumCpuCount: true
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact: drop'
+        inputs:
+          PathtoPublish: '$(build.artifactstagingdirectory)'
+        condition: succeededOrFailed()
